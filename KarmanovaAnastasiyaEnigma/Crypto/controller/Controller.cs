@@ -10,30 +10,17 @@ namespace Project1.controller
 {
     class Controller
     {
-        //private enum Algorithms
-        //{
-        //    aes,
-        //    des,
-        //    rc2,
-        //    rijndael
-        //}
-
-        //private FileStream streamIn;
-        //private FileStream streamOut;
-
-        //private string inputFilePath;
-        //private string outputFilePath;
         private string algorithm;
         private string crypt;
         private Parser parser = null;
         private CryptoInterface cryptor;
+
         public Controller(string[] args)
         {
             
             try
             {
                 parser = new Parser(args);
-
                 
                  
             }
@@ -74,6 +61,10 @@ namespace Project1.controller
                     cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
 
                 }
+                else
+                {
+                    throw new Exception("Wrong name of algorithm!");
+                }
             }
             else if (parser.crypt.Equals("decrypt"))
             {
@@ -104,6 +95,10 @@ namespace Project1.controller
                     cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
 
                 }
+                else
+                {
+                    throw new Exception("Wrong name of algorithm!");
+                }
             }
             else{
                 throw new Exception("Wrong operation name!");
@@ -112,10 +107,5 @@ namespace Project1.controller
         }
 
         
-
-        private bool parseKey(string keyFilePath)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
