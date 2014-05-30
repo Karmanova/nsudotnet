@@ -49,21 +49,7 @@ namespace LinesCounter
                         continue;
                     }
                 }
-            }
-
-            catch (UnauthorizedAccessException e)
-            {
-
-                Console.WriteLine(e.Message);
-            }
-
-            catch (System.IO.DirectoryNotFoundException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            try
-            {
+           
                 subDirs = System.IO.Directory.GetDirectories(currentDir);
                 foreach (string str in subDirs)
                 {
@@ -75,14 +61,15 @@ namespace LinesCounter
                 }
             }
 
-            catch (UnauthorizedAccessException e)
+            catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                if (e is UnauthorizedAccessException || e is System.IO.DirectoryNotFoundException)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                throw;
             }
-            catch (System.IO.DirectoryNotFoundException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+
         }
 
     }
