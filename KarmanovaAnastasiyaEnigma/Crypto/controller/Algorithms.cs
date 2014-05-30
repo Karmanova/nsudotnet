@@ -8,10 +8,10 @@ namespace Project1.controller
    
         public enum Algorithms
         {
-            aes,
-            des,
-            rc2,
-            rijndael
+            Aes,
+            Des,
+            Rc2,
+            Rijndael
         };
   
 }

@@ -39,7 +39,6 @@
     <Compile Include="controller\Controller.cs" />
     <Compile Include="controller\MainClass.cs" />
     <Compile Include="controller\Parser.cs" />
-    <Compile Include="model\ByteConverter.cs" />
     <Compile Include="model\CryptoInterface.cs" />
     <Compile Include="model\DESCrypto.cs" />
     <Compile Include="model\RC2Crypto.cs" />

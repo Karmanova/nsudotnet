@@ -37,8 +37,8 @@ namespace Project1.controller
             {
                 throw new Exception("There is no arguments!");
             }
-            
-            if (args[0].Equals("encrypt"))
+
+            if ("encrypt".Equals(args[0]))
             {
                 crypt = "encrypt";
                 if (args.Length != 4)
@@ -70,7 +70,7 @@ namespace Project1.controller
 
             }
 
-            else if (args[0].Equals("decrypt"))
+            else if ("decrypt".Equals(args[0]))
             {
                 crypt = "decrypt";
                 if (args.Length != 5)
@@ -85,7 +85,7 @@ namespace Project1.controller
 
                 if (!File.Exists(inputFilePath) || !File.Exists(keyFilePath))
                 {
-                    throw new Exception("There is no such file in this directory!");
+                    throw new FileNotFoundException(); //Exception("There is no such file in this directory!");
                 }
 
                 streamIn = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read);//output.bin

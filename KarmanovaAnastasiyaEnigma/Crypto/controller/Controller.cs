@@ -27,85 +27,105 @@ namespace Project1.controller
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                if (!(e is FileNotFoundException))
+                {
+                   CloseStreams();
+                }
                 return;
             }
 
-            
 
-            if (parser.crypt.Equals("encrypt"))
+
+            if ("encrypt".Equals(parser.crypt))
             {
-                if (parser.algorithm.Equals(Algorithms.aes.ToString()))
+                if (Algorithms.Aes.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("AES");
                     cryptor = new AESCrypto();
                     cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
                 }
-                else if (parser.algorithm.Equals(Algorithms.des.ToString()))
+                else if (Algorithms.Des.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("DES");
                     cryptor = new DESCrypto();
                     cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
                     
                 }
-                else if (parser.algorithm.Equals(Algorithms.rc2.ToString()))
+                else if (Algorithms.Rc2.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("RC2");
                     cryptor = new RC2Crypto();
                     cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
 
                 }
-                else if (parser.algorithm.Equals(Algorithms.rijndael.ToString()))
+                else if (Algorithms.Rijndael.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("rijndael".ToUpper());
                     cryptor = new RIJNDAELCrypto();
                     cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
 
+                    parser.streamIn.Dispose();
+                    parser.streamOut.Dispose();
+                    parser.streamKeyDecrypt.Dispose();
                 }
                 else
                 {
                     throw new Exception("Wrong name of algorithm!");
                 }
             }
-            else if (parser.crypt.Equals("decrypt"))
+            else if ("decrypt".Equals(parser.crypt))
             {
-                if (parser.algorithm.Equals(Algorithms.aes.ToString()))
+                if (Algorithms.Aes.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("AES");
                     cryptor = new AESCrypto();
                     cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
                 }
-                else if (parser.algorithm.Equals(Algorithms.des.ToString()))
+                else if (Algorithms.Des.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("DES");
                     cryptor = new DESCrypto();
                     cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
 
                 }
-                else if (parser.algorithm.Equals(Algorithms.rc2.ToString()))
+                else if (Algorithms.Rc2.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("RC2");
                     cryptor = new RC2Crypto();
                     cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
 
                 }
-                else if (parser.algorithm.Equals(Algorithms.rijndael.ToString()))
+                else if (Algorithms.Rijndael.ToString().ToLower().Equals(parser.algorithm))
                 {
                     System.Console.Write("rijndael".ToUpper());
                     cryptor = new RIJNDAELCrypto();
                     cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
-
+                    parser.streamIn.Dispose();
+                    parser.streamOut.Dispose();
+                    parser.streamKeyEncrypt.Dispose();
                 }
                 else
                 {
                     throw new Exception("Wrong name of algorithm!");
                 }
+
             }
             else{
                 throw new Exception("Wrong operation name!");
             }
+           // CloseStreams();
             
+        }
+
+        private void CloseStreams()
+        {
+            parser.streamIn.Dispose();
+            parser.streamOut.Dispose();
+            parser.streamKeyDecrypt.Dispose();
+            parser.streamKeyEncrypt.Dispose();
         }
 
         
     }
+
 }

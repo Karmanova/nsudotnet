@@ -14,7 +14,15 @@ namespace Project1.controller
         {
             controller = new Controller(args);
             consoleApp  = new ConsoleApp(controller);
+
+            object o1 = new string("awesome example".ToCharArray());
+            object o2 = new string("awesome example".ToCharArray());
+            System.Console.Write(o1 == o2);
+            System.Console.Write(o1.Equals(o2));
+            Console.Read();
         }
+
+        
     }
 }
 //decrypt output.bin aes input.key.txt result.txt
