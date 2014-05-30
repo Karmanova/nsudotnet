@@ -36,73 +36,73 @@ namespace Project1.controller
 
 
 
-            if ("encrypt".Equals(parser.crypt))
+            if ("encrypt".Equals(parser.Crypt))
             {
-                if (Algorithms.Aes.ToString().ToLower().Equals(parser.algorithm))
+                if (Algorithms.Aes.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("AES");
                     cryptor = new AESCrypto();
-                    cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
+                    cryptor.Encrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyEncrypt);
                 }
-                else if (Algorithms.Des.ToString().ToLower().Equals(parser.algorithm))
+                else if (Algorithms.Des.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("DES");
                     cryptor = new DESCrypto();
-                    cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
+                    cryptor.Encrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyEncrypt);
                     
                 }
-                else if (Algorithms.Rc2.ToString().ToLower().Equals(parser.algorithm))
+                else if (Algorithms.Rc2.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("RC2");
                     cryptor = new RC2Crypto();
-                    cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
+                    cryptor.Encrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyEncrypt);
 
                 }
-                else if (Algorithms.Rijndael.ToString().ToLower().Equals(parser.algorithm))
+                else if (Algorithms.Rijndael.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("rijndael".ToUpper());
                     cryptor = new RIJNDAELCrypto();
-                    cryptor.Encrypt(parser.streamIn, parser.streamOut, parser.streamKeyEncrypt);
+                    cryptor.Encrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyEncrypt);
 
-                    parser.streamIn.Dispose();
-                    parser.streamOut.Dispose();
-                    parser.streamKeyDecrypt.Dispose();
+                    parser.StreamIn.Dispose();
+                    parser.StreamOut.Dispose();
+                    parser.StreamKeyDecrypt.Dispose();
                 }
                 else
                 {
                     throw new Exception("Wrong name of algorithm!");
                 }
             }
-            else if ("decrypt".Equals(parser.crypt))
+            else if ("decrypt".Equals(parser.Crypt))
             {
-                if (Algorithms.Aes.ToString().ToLower().Equals(parser.algorithm))
+                if (Algorithms.Aes.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("AES");
                     cryptor = new AESCrypto();
-                    cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
+                    cryptor.Decrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyDecrypt);
                 }
-                else if (Algorithms.Des.ToString().ToLower().Equals(parser.algorithm))
+                else if (Algorithms.Des.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("DES");
                     cryptor = new DESCrypto();
-                    cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
+                    cryptor.Decrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyDecrypt);
 
                 }
-                else if (Algorithms.Rc2.ToString().ToLower().Equals(parser.algorithm))
+                else if (Algorithms.Rc2.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("RC2");
                     cryptor = new RC2Crypto();
-                    cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
+                    cryptor.Decrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyDecrypt);
 
                 }
-                else if (Algorithms.Rijndael.ToString().ToLower().Equals(parser.algorithm))
+                else if (Algorithms.Rijndael.ToString().ToLower().Equals(parser.Algorithm))
                 {
                     System.Console.Write("rijndael".ToUpper());
                     cryptor = new RIJNDAELCrypto();
-                    cryptor.Decrypt(parser.streamIn, parser.streamOut, parser.streamKeyDecrypt);
-                    parser.streamIn.Dispose();
-                    parser.streamOut.Dispose();
-                    parser.streamKeyEncrypt.Dispose();
+                    cryptor.Decrypt(parser.StreamIn, parser.StreamOut, parser.StreamKeyDecrypt);
+                    parser.StreamIn.Dispose();
+                    parser.StreamOut.Dispose();
+                    parser.StreamKeyEncrypt.Dispose();
                 }
                 else
                 {
@@ -119,10 +119,10 @@ namespace Project1.controller
 
         private void CloseStreams()
         {
-            parser.streamIn.Dispose();
-            parser.streamOut.Dispose();
-            parser.streamKeyDecrypt.Dispose();
-            parser.streamKeyEncrypt.Dispose();
+            parser.StreamIn.Dispose();
+            parser.StreamOut.Dispose();
+            parser.StreamKeyDecrypt.Dispose();
+            parser.StreamKeyEncrypt.Dispose();
         }
 
         
