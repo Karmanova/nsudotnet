@@ -44,7 +44,7 @@ namespace LinesCounter
             using (stream = new StreamReader(dir))
             {
                 string tmp;
-                while (stream.Peek() > 0)
+                while (!stream.EndOfStream)
                 {
                     tmp = stream.ReadLine();
 
@@ -57,46 +57,32 @@ namespace LinesCounter
                             }
                             else if (tmp.StartsWith("/*"))
                             {
-                                state = 1;
+                                if (IsCommentOpen(tmp, false))
+                                {
+                                    state = 1;
+                                }
+
                             }
                             else if (tmp.Contains("/*"))
                             {
-
                                 count++;
-                                char[] openComment = {'/', '*'};
-                                int open = tmp.LastIndexOfAny(openComment);
-                                char[] closeComment = { '*', '/' };
-                                int close = tmp.LastIndexOfAny(closeComment);
-                                if (close > open)
-                                {
-                                    //
-                                }
-                                else
+                                if (IsCommentOpen(tmp, false))
                                 {
                                     state = 1;
                                 }
                             }
-                            else if (!tmp.Equals(""))
+                            else if (!String.IsNullOrWhiteSpace(tmp))
                             {
                                 count++;
                             }
                             break;
                         case 1 :
-                            if (tmp.EndsWith("*/"))
-                            {
-                                state = 0;
-                            }
-                            else if (tmp.Contains("*/"))
+                            if (tmp.Contains("*/"))
                             {
                                 if (tmp.Contains("/*"))
                                 {
-                                    char[] openComment = { '/', '*' };
-                                    int open = tmp.LastIndexOfAny(openComment);
-                                    char[] closeComment = { '*', '/' };
-                                    int close = tmp.LastIndexOfAny(closeComment);
-                                    if (close > open)
+                                    if (IsCommentOpen(tmp, true))
                                     {
-                                        count++;
                                         state = 0;
                                     }
                                 }
@@ -113,6 +99,66 @@ namespace LinesCounter
             }
 
             return count;
+        }
+
+        private bool IsCommentOpen(string str, bool startState)
+        {
+            int state;
+            bool isCommentOpen;
+            if (startState)
+            {
+                state = 2;
+                isCommentOpen = true;
+            }
+            else
+            {
+                state = 0;
+                isCommentOpen = false;
+            }
+            
+            foreach (char c in str)
+            {
+                switch (state)
+                {
+                    case 0:
+                        if (c.Equals('/'))
+                        {
+                            state = 1;
+                        }
+                        break;
+                    case 1:
+                        if (c.Equals('*'))
+                        {
+                            isCommentOpen = true;
+                            state = 2;
+                        }
+                        else if (!c.Equals('/'))
+                        {
+                            state = 0;
+                        }
+                        break;
+                    case 2:
+                        if (c.Equals('*'))
+                        {
+                            state = 3;
+                        }
+                        break;
+                    case 3:
+                        if (c.Equals('/'))
+                        {
+                            state = 0;
+                            isCommentOpen = false;
+                        }
+                        else if (!c.Equals('*'))
+                        {
+                            state = 2;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return isCommentOpen;
         }
     }
 }
